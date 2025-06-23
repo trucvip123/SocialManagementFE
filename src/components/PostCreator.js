@@ -84,8 +84,11 @@ const PostCreator = () => {
     setLoading(true);
     setMessage({ type: '', text: '' });
 
+    // Gửi trực tiếp giá trị ISO từ input, không chuyển đổi
+    let scheduledForVN = formData.scheduledFor || null;
+
     try {
-      const response = await axios.post('/posts', formData);
+      const response = await axios.post('/posts', { ...formData, scheduledFor: scheduledForVN });
       setMessage({ type: 'success', text: 'Tạo bài đăng thành công!' });
       
       // Reset form
@@ -102,7 +105,8 @@ const PostCreator = () => {
     } catch (error) {
       setMessage({ 
         type: 'error', 
-        text: error.response?.data?.message || 'Lỗi khi tạo bài đăng' 
+        // text: error.response?.data?.message || 'Lỗi khi tạo bài đăng' 
+        text: error.response?.data?.message 
       });
     } finally {
       setLoading(false);

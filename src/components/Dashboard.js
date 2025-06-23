@@ -222,7 +222,7 @@ const Dashboard = () => {
                         ))}
                       </Box>
                       <Typography variant="caption" color="textSecondary">
-                        {new Date(post.createdAt).toLocaleString('vi-VN')}
+                        {new Date(post.createdAt).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}
                       </Typography>
                     </Box>
                   ))}

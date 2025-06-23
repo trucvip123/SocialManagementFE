@@ -98,8 +98,13 @@ const PostHistory = () => {
                 ))}
               </Box>
               <Typography variant="caption" color="textSecondary">
-                {new Date(post.createdAt).toLocaleString('vi-VN')}
+                {new Date(post.createdAt).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}
               </Typography>
+              {post.scheduledFor && (
+                <Typography variant="caption" color="primary" sx={{ display: 'block' }}>
+                  Lịch đăng bài: {new Date(post.scheduledFor).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}
+                </Typography>
+              )}
             </CardContent>
           </Card>
         ))
