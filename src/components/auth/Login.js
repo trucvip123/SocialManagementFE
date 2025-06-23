@@ -58,7 +58,7 @@ const Login = () => {
       >
         <Paper elevation={3} sx={{ p: 4, width: '100%' }}>
           <Typography component="h1" variant="h5" align="center" gutterBottom>
-            Đăng nhập
+            Login
           </Typography>
           
           {error && (
@@ -85,7 +85,7 @@ const Login = () => {
               required
               fullWidth
               name="password"
-              label="Mật khẩu"
+              label="Password"
               type="password"
               id="password"
               autoComplete="current-password"
@@ -99,12 +99,12 @@ const Login = () => {
               sx={{ mt: 3, mb: 2 }}
               disabled={loading}
             >
-              {loading ? <CircularProgress size={24} /> : 'Đăng nhập'}
+              {loading ? <CircularProgress size={24} /> : 'Login'}
             </Button>
             <Box sx={{ textAlign: 'center' }}>
               <Link to="/register" style={{ textDecoration: 'none' }}>
                 <Typography variant="body2" color="primary">
-                  Chưa có tài khoản? Đăng ký ngay
+                  Don't have an account? Register now
                 </Typography>
               </Link>
             </Box>

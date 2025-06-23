@@ -43,7 +43,7 @@ const SocialConnections = () => {
       const response = await axios.get('/social/status');
       setConnections(response.data.socialAccounts);
     } catch (error) {
-      setError('Lỗi khi tải trạng thái kết nối');
+      setError('Error loading connection status');
     } finally {
       setLoading(false);
     }
@@ -58,10 +58,10 @@ const SocialConnections = () => {
   const handleDisconnect = async (platform) => {
     try {
       await axios.post(`/social/disconnect/${platform}`);
-      setSuccess(`Đã ngắt kết nối ${platform} thành công`);
+      setSuccess(`Successfully disconnected ${platform}`);
       fetchConnections();
     } catch (error) {
-      setError('Lỗi khi ngắt kết nối');
+      setError('Error disconnecting');
     }
   };
 
@@ -82,11 +82,11 @@ const SocialConnections = () => {
     setConnecting(true);
     try {
       await axios.post(`/social/connect/${selectedPlatform}`, formData);
-      setSuccess(`Kết nối ${selectedPlatform} thành công`);
+      setSuccess(`Successfully connected ${selectedPlatform}`);
       handleDialogClose();
       fetchConnections();
     } catch (error) {
-      setError(error.response?.data?.message || 'Lỗi khi kết nối');
+      setError(error.response?.data?.message || 'Error connecting');
     } finally {
       setConnecting(false);
     }
@@ -96,7 +96,7 @@ const SocialConnections = () => {
     switch (platform) {
       case 'facebook':
         return {
-          title: 'Kết nối Facebook',
+          title: 'Connect Facebook',
           icon: <Facebook color="primary" />,
           fields: [
             { name: 'accessToken', label: 'Access Token', type: 'text', required: true },
@@ -105,7 +105,7 @@ const SocialConnections = () => {
         };
       case 'twitter':
         return {
-          title: 'Kết nối Twitter',
+          title: 'Connect Twitter',
           icon: <Twitter color="primary" />,
           fields: [
             { name: 'apiKey', label: 'API Key', type: 'text', required: true },
@@ -116,7 +116,7 @@ const SocialConnections = () => {
         };
       case 'instagram':
         return {
-          title: 'Kết nối Instagram',
+          title: 'Connect Instagram',
           icon: <Instagram color="primary" />,
           fields: [
             { name: 'username', label: 'Username', type: 'text', required: true },
@@ -143,7 +143,7 @@ const SocialConnections = () => {
   return (
     <Container maxWidth="lg">
       <Typography variant="h4" gutterBottom>
-        Kết nối mạng xã hội
+        Social Connections
       </Typography>
 
       {error && (
@@ -177,7 +177,7 @@ const SocialConnections = () => {
                     color={data.isConnected ? 'success.main' : 'error.main'}
                     sx={{ mb: 2 }}
                   >
-                    {data.isConnected ? 'Đã kết nối' : 'Chưa kết nối'}
+                    {data.isConnected ? 'Connected' : 'Not connected'}
                   </Typography>
 
                   {data.isConnected ? (
@@ -188,7 +188,7 @@ const SocialConnections = () => {
                       onClick={() => handleDisconnect(platform)}
                       fullWidth
                     >
-                      Ngắt kết nối
+                      Disconnect
                     </Button>
                   ) : (
                     <Button
@@ -197,7 +197,7 @@ const SocialConnections = () => {
                       onClick={() => handleConnect(platform)}
                       fullWidth
                     >
-                      Kết nối
+                      Connect
                     </Button>
                   )}
                 </CardContent>
@@ -235,13 +235,13 @@ const SocialConnections = () => {
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleDialogClose}>Hủy</Button>
+          <Button onClick={handleDialogClose}>Cancel</Button>
           <Button
             onClick={handleConnectSubmit}
             variant="contained"
             disabled={connecting}
           >
-            {connecting ? <CircularProgress size={20} /> : 'Kết nối'}
+            {connecting ? <CircularProgress size={20} /> : 'Connect'}
           </Button>
         </DialogActions>
       </Dialog>

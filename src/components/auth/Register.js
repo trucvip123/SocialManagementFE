@@ -71,7 +71,7 @@ const Register = () => {
       >
         <Paper elevation={3} sx={{ p: 4, width: '100%' }}>
           <Typography component="h1" variant="h5" align="center" gutterBottom>
-            Đăng ký
+            Register
           </Typography>
           
           {error && (
@@ -86,7 +86,7 @@ const Register = () => {
               required
               fullWidth
               id="username"
-              label="Tên người dùng"
+              label="Username"
               name="username"
               autoComplete="username"
               autoFocus
@@ -110,7 +110,7 @@ const Register = () => {
               required
               fullWidth
               name="password"
-              label="Mật khẩu"
+              label="Password"
               type="password"
               id="password"
               autoComplete="new-password"
@@ -122,7 +122,7 @@ const Register = () => {
               required
               fullWidth
               name="confirmPassword"
-              label="Xác nhận mật khẩu"
+              label="Confirm Password"
               type="password"
               id="confirmPassword"
               value={formData.confirmPassword}
@@ -135,12 +135,12 @@ const Register = () => {
               sx={{ mt: 3, mb: 2 }}
               disabled={loading}
             >
-              {loading ? <CircularProgress size={24} /> : 'Đăng ký'}
+              {loading ? <CircularProgress size={24} /> : 'Register'}
             </Button>
             <Box sx={{ textAlign: 'center' }}>
               <Link to="/login" style={{ textDecoration: 'none' }}>
                 <Typography variant="body2" color="primary">
-                  Đã có tài khoản? Đăng nhập ngay
+                  Already have an account? Login now
                 </Typography>
               </Link>
             </Box>

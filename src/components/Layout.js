@@ -30,9 +30,9 @@ const drawerWidth = 240;
 
 const menuItems = [
   { text: 'Dashboard', icon: <DashboardIcon />, path: '/' },
-  { text: 'Tạo bài đăng', icon: <CreateIcon />, path: '/create' },
-  { text: 'Kết nối mạng xã hội', icon: <LinkIcon />, path: '/connections' },
-  { text: 'Lịch sử đăng bài', icon: <HistoryIcon />, path: '/history' }
+  { text: 'Create Post', icon: <CreateIcon />, path: '/create' },
+  { text: 'Social Connections', icon: <LinkIcon />, path: '/connections' },
+  { text: 'Post History', icon: <HistoryIcon />, path: '/history' }
 ];
 
 const Layout = () => {
@@ -90,7 +90,7 @@ const Layout = () => {
               <ListItemIcon>
                 <Logout fontSize="small" />
               </ListItemIcon>
-              <ListItemText>Đăng xuất</ListItemText>
+              <ListItemText>Logout</ListItemText>
             </MenuItem>
           </Menu>
         </Toolbar>

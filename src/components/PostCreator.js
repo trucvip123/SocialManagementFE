@@ -71,13 +71,13 @@ const PostCreator = () => {
     e.preventDefault();
     
     if (!formData.content.trim()) {
-      setMessage({ type: 'error', text: 'Nội dung bài đăng là bắt buộc' });
+      setMessage({ type: 'error', text: 'Post content is required' });
       return;
     }
 
     const selectedPlatforms = Object.values(formData.platforms).some(Boolean);
     if (!selectedPlatforms) {
-      setMessage({ type: 'error', text: 'Vui lòng chọn ít nhất 1 mạng xã hội' });
+      setMessage({ type: 'error', text: 'Please select at least one social network' });
       return;
     }
 
@@ -89,7 +89,7 @@ const PostCreator = () => {
 
     try {
       const response = await axios.post('/posts', { ...formData, scheduledFor: scheduledForVN });
-      setMessage({ type: 'success', text: 'Tạo bài đăng thành công!' });
+      setMessage({ type: 'success', text: 'Post created successfully!' });
       
       // Reset form
       setFormData({
@@ -116,7 +116,7 @@ const PostCreator = () => {
   return (
     <Container maxWidth="md">
       <Typography variant="h4" gutterBottom>
-        Tạo bài đăng mới
+        Create new post
       </Typography>
 
       {message.text && (
@@ -131,19 +131,19 @@ const PostCreator = () => {
             fullWidth
             multiline
             rows={4}
-            label="Nội dung bài đăng"
+            label="Post content"
             name="content"
             value={formData.content}
             onChange={handleChange}
             margin="normal"
             required
-            helperText={`${formData.content.length}/2000 ký tự`}
+            helperText={`${formData.content.length}/2000 characters`}
             inputProps={{ maxLength: 2000 }}
           />
 
           <Box sx={{ mt: 2, mb: 2 }}>
             <Typography variant="h6" gutterBottom>
-              Chọn mạng xã hội
+              Select social networks
             </Typography>
             <Grid container spacing={2}>
               <Grid item>
@@ -190,7 +190,7 @@ const PostCreator = () => {
 
           <Box sx={{ mt: 2, mb: 2 }}>
             <Typography variant="h6" gutterBottom>
-              Thêm hình ảnh/video
+              Add image/video
             </Typography>
             <input
               accept="image/*,video/*"
@@ -202,7 +202,7 @@ const PostCreator = () => {
             />
             <label htmlFor="media-upload">
               <Button variant="outlined" component="span">
-                Chọn file
+                Choose file
               </Button>
             </label>
           </Box>
@@ -224,7 +224,7 @@ const PostCreator = () => {
                         color="error"
                         onClick={() => removeMedia(index)}
                       >
-                        Xóa
+                        Delete
                       </Button>
                     </CardContent>
                   </Card>
@@ -236,7 +236,7 @@ const PostCreator = () => {
           <TextField
             fullWidth
             type="datetime-local"
-            label="Lịch đăng bài (tùy chọn)"
+            label="Schedule post (optional)"
             name="scheduledFor"
             value={formData.scheduledFor}
             onChange={handleChange}
@@ -254,7 +254,7 @@ const PostCreator = () => {
               disabled={loading}
               fullWidth
             >
-              {loading ? <CircularProgress size={24} /> : 'Đăng bài'}
+              {loading ? <CircularProgress size={24} /> : 'Post'}
             </Button>
           </Box>
         </Box>

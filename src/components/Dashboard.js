@@ -52,7 +52,7 @@ const Dashboard = () => {
         recentPosts: postsResponse.data.posts || []
       });
     } catch (error) {
-      setError('Lỗi khi tải dữ liệu dashboard');
+      setError('Error loading dashboard data');
     } finally {
       setLoading(false);
     }
@@ -115,7 +115,7 @@ const Dashboard = () => {
                 <TrendingUp color="primary" sx={{ mr: 2, fontSize: 40 }} />
                 <Box>
                   <Typography variant="h4">{stats.totalPosts}</Typography>
-                  <Typography color="textSecondary">Tổng số bài đăng</Typography>
+                  <Typography color="textSecondary">Total posts</Typography>
                 </Box>
               </Box>
             </CardContent>
@@ -129,7 +129,7 @@ const Dashboard = () => {
                 <Create color="primary" sx={{ mr: 2, fontSize: 40 }} />
                 <Box>
                   <Typography variant="h4">{stats.connectedPlatforms}</Typography>
-                  <Typography color="textSecondary">Mạng xã hội đã kết nối</Typography>
+                  <Typography color="textSecondary">Connected social networks</Typography>
                 </Box>
               </Box>
             </CardContent>
@@ -140,7 +140,7 @@ const Dashboard = () => {
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>
-                Trạng thái kết nối
+                Connection status
               </Typography>
               <Box>
                 {Object.entries(user?.socialAccounts || {}).map(([platform, data]) => (
@@ -153,7 +153,7 @@ const Dashboard = () => {
                       variant="body2"
                       color={data.isConnected ? 'success.main' : 'error.main'}
                     >
-                      {data.isConnected ? 'Đã kết nối' : 'Chưa kết nối'}
+                      {data.isConnected ? 'Connected' : 'Not connected'}
                     </Typography>
                   </Box>
                 ))}
@@ -167,7 +167,7 @@ const Dashboard = () => {
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>
-                Hành động nhanh
+                Quick actions
               </Typography>
               <Button
                 variant="contained"
@@ -175,13 +175,13 @@ const Dashboard = () => {
                 onClick={() => navigate('/create')}
                 sx={{ mr: 2 }}
               >
-                Tạo bài đăng mới
+                Create new post
               </Button>
               <Button
                 variant="outlined"
                 onClick={() => navigate('/connections')}
               >
-                Quản lý kết nối
+                Manage connections
               </Button>
             </CardContent>
           </Card>
@@ -192,11 +192,11 @@ const Dashboard = () => {
           <Card>
             <CardContent>
               <Typography variant="h6" gutterBottom>
-                Bài đăng gần đây
+                Recent posts
               </Typography>
               {stats.recentPosts.length === 0 ? (
                 <Typography color="textSecondary">
-                  Chưa có bài đăng nào
+                  No posts yet
                 </Typography>
               ) : (
                 <Box>

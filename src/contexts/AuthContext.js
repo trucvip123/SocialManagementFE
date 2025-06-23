@@ -58,7 +58,7 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       return {
         success: false,
-        message: error.response?.data?.message || 'Lỗi đăng nhập'
+        message: error.response?.data?.message || 'Login error'
       };
     }
   };
@@ -78,7 +78,7 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       return {
         success: false,
-        message: error.response?.data?.message || 'Lỗi đăng ký'
+        message: error.response?.data?.message || 'Registration error'
       };
     }
   };

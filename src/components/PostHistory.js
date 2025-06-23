@@ -55,7 +55,7 @@ const PostHistory = () => {
       const res = await axios.get('/posts');
       setPosts(res.data.posts || []);
     } catch (err) {
-      setError('Lỗi khi tải lịch sử bài đăng');
+      setError('Error loading post history');
     } finally {
       setLoading(false);
     }
@@ -64,7 +64,7 @@ const PostHistory = () => {
   return (
     <Container maxWidth="md">
       <Typography variant="h4" gutterBottom>
-        Lịch sử bài đăng
+        Post history
       </Typography>
       {loading ? (
         <Box display="flex" justifyContent="center" alignItems="center" minHeight="300px">
@@ -73,7 +73,7 @@ const PostHistory = () => {
       ) : error ? (
         <Alert severity="error">{error}</Alert>
       ) : posts.length === 0 ? (
-        <Typography color="textSecondary">Chưa có bài đăng nào</Typography>
+        <Typography color="textSecondary">No posts yet</Typography>
       ) : (
         posts.map((post) => (
           <Card key={post._id} sx={{ mb: 2 }}>
@@ -98,11 +98,11 @@ const PostHistory = () => {
                 ))}
               </Box>
               <Typography variant="caption" color="textSecondary">
-                {new Date(post.createdAt).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}
+                {new Date(post.createdAt).toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' })}
               </Typography>
               {post.scheduledFor && (
                 <Typography variant="caption" color="primary" sx={{ display: 'block' }}>
-                  Lịch đăng bài: {new Date(post.scheduledFor).toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' })}
+                  Scheduled for: {new Date(post.scheduledFor).toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' })}
                 </Typography>
               )}
             </CardContent>
