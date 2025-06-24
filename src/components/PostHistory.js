@@ -93,6 +93,11 @@ const PostHistory = () => {
                       >
                         {data.status}
                       </Typography>
+                      {data.status === 'failed' && data.error && (
+                        <Typography variant="caption" color="error" sx={{ ml: 1 }}>
+                          Lỗi: {data.error}
+                        </Typography>
+                      )}
                     </Box>
                   )
                 ))}
