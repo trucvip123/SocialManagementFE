@@ -31,6 +31,10 @@ const PostCreator = () => {
   });
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState({ type: '', text: '' });
+  const [showFbGroupSelenium, setShowFbGroupSelenium] = useState(false);
+  const [fbGroupForm, setFbGroupForm] = useState({ cookies: '', groupId: '', content: '' });
+  const [fbGroupLoading, setFbGroupLoading] = useState(false);
+  const [fbGroupMessage, setFbGroupMessage] = useState({ type: '', text: '' });
 
   const handleChange = (e) => {
     setFormData({
@@ -110,6 +114,38 @@ const PostCreator = () => {
       });
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleFbGroupFormChange = (e) => {
+    setFbGroupForm({ ...fbGroupForm, [e.target.name]: e.target.value });
+  };
+
+  const handleFbGroupSubmit = async (e) => {
+    e.preventDefault();
+    setFbGroupLoading(true);
+    setFbGroupMessage({ type: '', text: '' });
+    try {
+      // Parse cookies từ string sang array object
+      let cookiesArr = [];
+      try {
+        cookiesArr = JSON.parse(fbGroupForm.cookies);
+      } catch (err) {
+        setFbGroupMessage({ type: 'error', text: 'Cookies phải là JSON array hợp lệ!' });
+        setFbGroupLoading(false);
+        return;
+      }
+      const res = await axios.post('/social/post/facebook-group-selenium', {
+        cookies: cookiesArr,
+        groupId: fbGroupForm.groupId,
+        content: fbGroupForm.content
+      });
+      setFbGroupMessage({ type: 'success', text: res.data.message });
+      setFbGroupForm({ cookies: '', groupId: '', content: '' });
+    } catch (err) {
+      setFbGroupMessage({ type: 'error', text: err.response?.data?.message || 'Error posting to Facebook group' });
+    } finally {
+      setFbGroupLoading(false);
     }
   };
 
@@ -259,6 +295,63 @@ const PostCreator = () => {
           </Box>
         </Box>
       </Paper>
+
+      <Box sx={{ mt: 3, mb: 2 }}>
+        <Button variant="outlined" onClick={() => setShowFbGroupSelenium(!showFbGroupSelenium)}>
+          {showFbGroupSelenium ? 'Hide Facebook Group (Selenium)' : 'Post to Facebook Group (Selenium)'}
+        </Button>
+      </Box>
+      {showFbGroupSelenium && (
+        <Paper elevation={2} sx={{ p: 2, mb: 2 }}>
+          <Typography variant="h6" gutterBottom>Post to Facebook Group (Selenium)</Typography>
+          {fbGroupMessage.text && (
+            <Alert severity={fbGroupMessage.type} sx={{ mb: 2 }}>{fbGroupMessage.text}</Alert>
+          )}
+          <Box component="form" onSubmit={handleFbGroupSubmit}>
+            <TextField
+              fullWidth
+              margin="normal"
+              label="Facebook Cookies (JSON array)"
+              name="cookies"
+              type="text"
+              value={fbGroupForm.cookies}
+              onChange={handleFbGroupFormChange}
+              required
+              helperText="Dán chuỗi JSON cookies Facebook (array)"
+            />
+            <TextField
+              fullWidth
+              margin="normal"
+              label="Group ID"
+              name="groupId"
+              type="text"
+              value={fbGroupForm.groupId}
+              onChange={handleFbGroupFormChange}
+              required
+            />
+            <TextField
+              fullWidth
+              margin="normal"
+              label="Post Content"
+              name="content"
+              multiline
+              rows={3}
+              value={fbGroupForm.content}
+              onChange={handleFbGroupFormChange}
+              required
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={fbGroupLoading}
+              sx={{ mt: 2 }}
+            >
+              {fbGroupLoading ? <CircularProgress size={20} /> : 'Post to Facebook Group'}
+            </Button>
+          </Box>
+        </Paper>
+      )}
     </Container>
   );
 };
